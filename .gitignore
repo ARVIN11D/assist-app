@@ -1,0 +1,32 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+*.g.dart
+
+# Android
+android/.gradle/
+android/local.properties
+android/app/google-services.json
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+
+# Environment
+.env
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Keys (IMPORTANT - don't commit!)
+*.keystore
+*.jks
+custom-cacerts
+gradle-cert*
+proxy-cert*

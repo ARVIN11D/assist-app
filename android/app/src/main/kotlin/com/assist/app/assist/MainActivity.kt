@@ -1,0 +1,5 @@
+package com.assist.app.assist
+
+import io.flutter.embedding.android.FlutterFragmentActivity
+
+class MainActivity : FlutterFragmentActivity()
