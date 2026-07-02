@@ -21,7 +21,7 @@ void main() async {
     url: AppConstants.supabaseUrl.isEmpty
         ? 'https://placeholder.supabase.co'
         : AppConstants.supabaseUrl,
-    anonKey: AppConstants.supabaseAnonKey.isEmpty
+    publishableKey: AppConstants.supabaseAnonKey.isEmpty
         ? 'placeholder-key'
         : AppConstants.supabaseAnonKey,
   );
