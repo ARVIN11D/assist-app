@@ -6,24 +6,13 @@ workflows:
       flutter: 3.32.2
       java: 17
     scripts:
-      - name: Flutter version info
-        script: |
-          flutter --version
-          java -version
       - name: Get Flutter packages
         script: flutter pub get
-      - name: Check Android setup
-        script: |
-          flutter doctor -v
-          echo "NDK check:"
-          ls $ANDROID_SDK_ROOT/ndk/ 2>/dev/null || echo "No NDK dir"
       - name: Build debug APK
-        script: |
-          cd android
-          ./gradlew assembleDebug --stacktrace --info 2>&1 | tail -100
+        script: flutter build apk --debug --verbose
     artifacts:
-      - build/app/outputs/flutter-apk/app-debug.apk
-      - build/app/outputs/apk/debug/app-debug.apk
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/app-debug.apk
     publishing:
       email:
         recipients:
