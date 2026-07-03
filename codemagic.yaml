@@ -8,11 +8,27 @@ workflows:
     scripts:
       - name: Get Flutter packages
         script: flutter pub get
+
       - name: Build debug APK
-        script: flutter build apk --debug --verbose
+        script: |
+          # Run build and capture output
+          flutter build apk --debug 2>&1 | tee /tmp/build_output.txt
+          BUILD_EXIT=${PIPESTATUS[0]}
+          
+          if [ $BUILD_EXIT -ne 0 ]; then
+            echo ""
+            echo "========== GRADLE ERROR DETAILS =========="
+            grep -E "error:|Error|FAILURE|Exception|BUILD FAILED|> Task|Execution failed|Could not|warning:" /tmp/build_output.txt | head -80
+            echo "=========================================="
+            echo ""
+            echo "=== Gradle problem reports ==="
+            find . -name "*.txt" -path "*/reports/*" -exec cat {} \; 2>/dev/null || true
+            find . -name "problems-report.html" -exec echo "Found: {}" \; 2>/dev/null || true
+            exit 1
+          fi
+
     artifacts:
       - build/**/outputs/**/*.apk
-      - build/**/outputs/**/app-debug.apk
     publishing:
       email:
         recipients:
